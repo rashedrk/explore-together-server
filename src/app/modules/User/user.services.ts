@@ -24,7 +24,7 @@ const createUserIntoDB = async (payload: TUser) => {
                 updatedAt: true
             }
         },
-    );
+        );
 
         const profile = {
             userId: createdUser.id,
@@ -44,8 +44,47 @@ const createUserIntoDB = async (payload: TUser) => {
 
 }
 
+const getUserInfoFromDB = async (id: string) => {
+    const result = await prisma.user.findUniqueOrThrow({
+        where: {
+            id
+        },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            createdAt: true,
+            updatedAt: true
+        }
+    });
+
+    return result;
+}
+
+const updateUserIntoDB = async (id: string, payload: Partial<TUser>) => {
+    const result = await prisma.user.update({
+        where: {
+            id
+        },
+        data: {
+            name: payload?.name,
+            email: payload?.email
+        },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            createdAt: true,
+            updatedAt: true
+        }
+    });
+
+    return result
+}
+
 
 export const userServices = {
     createUserIntoDB,
-
+    getUserInfoFromDB,
+    updateUserIntoDB
 }
