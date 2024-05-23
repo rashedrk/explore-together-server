@@ -28,7 +28,21 @@ const getTravelBuddies = catchAsync(async (req, res) => {
 })
 
 
+const responseBuddyRequest = catchAsync(async (req, res) => {
+    const {buddyId} = req.params;
+    const result = await travelBuddyServices.responseBuddyRequest(buddyId, req.body);
+
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: 'Travel buddy request responded successfully',
+        data: result
+    })
+})
+
+
 export const travelBuddyControllers = {
     sendTravelBuddyRequest,
-    getTravelBuddies
+    getTravelBuddies,
+    responseBuddyRequest
 }
