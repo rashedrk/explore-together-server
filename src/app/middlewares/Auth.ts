@@ -21,9 +21,14 @@ const auth = () => {
     ) as JwtPayload;
 
     const { id } = decoded;
+   
 
     // checking if the user is exist
-    const user = await prisma.user.findUniqueOrThrow(id);
+    const user = await prisma.user.findUnique({
+        where: {
+            id
+        }
+    });
 
     if (!user) {
       throw new Error('This user is not found !');
