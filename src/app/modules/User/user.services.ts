@@ -15,8 +15,16 @@ const createUserIntoDB = async (payload: TUser) => {
     const result = await prisma.$transaction(async (trxClient) => {
         // create user into user table
         const createdUser = await prisma.user.create({
-            data: user
-        });
+            data: user,
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                createdAt: true,
+                updatedAt: true
+            }
+        },
+    );
 
         const profile = {
             userId: createdUser.id,
