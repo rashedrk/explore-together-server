@@ -23,20 +23,27 @@ const getAllTripsFromDB = async (params: any, options: any) => {
     // console.log(params);
 
     if (params.searchTerm) {
-        andConditions.push({
-            OR: [
-                {
-                    destination: {
-                        contains: params.searchTerm,
-                        mode: 'insensitive'
-                    }
-                },
-                {
-                    budget: {
-                        equals: Number(params.searchTerm),
-                    }
+
+        const orConditions = [];
+
+        orConditions.push({
+            destination: {
+                contains: searchTerm,
+                mode: Prisma.QueryMode.insensitive
+            }
+        });
+
+        const budget = Number(searchTerm);
+        if (!isNaN(budget)) {
+            orConditions.push({
+                budget: {
+                    equals: budget
                 }
-            ]
+            });
+        }
+
+        andConditions.push({
+            OR: orConditions
         })
     };
 
