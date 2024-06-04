@@ -4,4 +4,8 @@ type TTrip = {
     endDate: string
     budget: number
     activities: string[]
+    photos: string[],
+    description: string,
+    type: string,
+    
 }

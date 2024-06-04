@@ -41,6 +41,9 @@ model Trip {
   activities  String[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt()
+  photos      String[]
+  description String
+  type        String
 
   user               User                 @relation(fields: [userId], references: [id])
   TravelBuddyRequest TravelBuddyRequest[]
@@ -50,7 +53,7 @@ model TravelBuddyRequest {
   id        String   @id @default(uuid())
   tripId    String
   userId    String
-  status    Status @default(PENDING)
+  status    Status   @default(PENDING)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()
 
