@@ -4,9 +4,12 @@
 //     age: number
 // }
 
+import { Role } from "@prisma/client"
+
 export type TUser = {
     name: string
     email: string
+    role: Role,
     password: string
     // profile: TProfile
 }

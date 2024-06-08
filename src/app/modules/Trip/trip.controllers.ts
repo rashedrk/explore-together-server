@@ -31,7 +31,19 @@ const getAllTrips = catchAsync(async (req, res) => {
     })
 });
 
+const getATrip = catchAsync(async(req,res) => {
+    const {id} = req.params;
+    const result = await tripServices.getATripFromDB(id);
+    sendResponse(res, {
+        success: true,
+        statusCode: 200,
+        message: "Trip retrieved successfully",
+        data: result
+    })
+})
+
 export const tripControllers = {
     createTrip,
-    getAllTrips
+    getAllTrips,
+    getATrip
 }

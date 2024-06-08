@@ -10,6 +10,7 @@ const createUserIntoDB = async (payload: TUser) => {
     const user = {
         name: payload.name,
         email: payload.email,
+        role: payload.role,
         password: hashedPassword
     }
     // const result = await prisma.$transaction(async (trxClient) => {

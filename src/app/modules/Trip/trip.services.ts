@@ -102,8 +102,18 @@ const getAllTripsFromDB = async (params: any, options: any) => {
         data: result
     };
 }
+const getATripFromDB = async (id: string) => {
+    const result = await prisma.trip.findUniqueOrThrow({
+        where: {
+            id
+        }
+    });
+
+    return result;
+}
 
 export const tripServices = {
     createTripIntoDB,
-    getAllTripsFromDB
+    getAllTripsFromDB,
+    getATripFromDB
 }
