@@ -77,6 +77,12 @@ const getAllTripsFromDB = async (params: any, options: any) => {
         })
     };
 
+    andConditions.push({
+        status: {
+            not : "deactivated"
+        }
+    })
+
     const whereConditions: Prisma.TripWhereInput = { AND: andConditions }
 
     const result = await prisma.trip.findMany({
@@ -104,9 +110,14 @@ const getAllTripsFromDB = async (params: any, options: any) => {
     };
 }
 const getATripFromDB = async (id: string) => {
-    const result = await prisma.trip.findUniqueOrThrow({
+    const result = await prisma.trip.findFirstOrThrow({
         where: {
-            id
+            AND: [
+                {id: id},
+                {status: {
+                    not: "deactivated"
+                }}
+            ]
         }
     });
 
