@@ -37,9 +37,34 @@ const updateUser = catchAsync(async (req, res) => {
     })
 });
 
+const getAllUser = catchAsync(async (req, res) => {
+    const userData = verifyToken(req.headers.authorization as string, config.jwt_secret as string);
+    const result = await userServices.getAllUserFromDB(userData.id);
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: 'All user retrieved successfully',
+        data: result
+    })
+});
+
+const updateUserRoleAndStatus = catchAsync(async (req, res) => {
+    const {id} = req.params;
+    const payload = req.body;
+
+    const result = await userServices.updateUserRoleAndStatusIntoDB(id, payload)
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: 'User updated successfully',
+        data: result
+    })
+})
 
 export const userControllers = {
     createUser,
     getUserProfile,
-    updateUser
+    updateUser,
+    getAllUser,
+    updateUserRoleAndStatus
 }

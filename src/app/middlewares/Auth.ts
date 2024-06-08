@@ -3,9 +3,10 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../config';
 import catchAsync from '../utils/CatchAsync';
 import { prisma } from '../utils/global';
+import { Role } from '@prisma/client';
 
 
-const auth = () => {
+const auth = (...requiredRoles: Role[]) => {
     return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
         const token = req.headers.authorization;
 
@@ -20,7 +21,10 @@ const auth = () => {
             config.jwt_secret as string,
         ) as JwtPayload;
 
-        const { id } = decoded;
+        const { id, role } = decoded;
+
+        console.log(role);
+        
 
 
         // checking if the user is exist
@@ -32,6 +36,12 @@ const auth = () => {
 
         if (!user) {
             throw new Error('This user is not found !');
+        }
+
+        if (requiredRoles && !requiredRoles.includes(role)) {
+            throw new Error(
+                'You are not authorized!',
+            );
         }
         next();
     });

@@ -25,6 +25,7 @@ const loginUser = async (payload: TAuth) => {
     const accessToken = generateToken({
         email: userData.email,
         id: userData.id,
+        role: userData.role,
     },
         config.jwt_secret as Secret,
         config.jwt_expires_in as string,

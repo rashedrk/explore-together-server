@@ -1,4 +1,3 @@
-import config from "../../config"
 import { prisma } from "../../utils/global"
 import { TUser } from "./user.interface"
 import bcrypt from "bcrypt"
@@ -97,8 +96,54 @@ const updateUserIntoDB = async (id: string, payload: Partial<TUser>) => {
 }
 
 
+const getAllUserFromDB = async (id: string) => {
+    const result = await prisma.user.findMany({
+        where: {
+            id: {
+                not: id
+            }
+        },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            isActive: true,
+            createdAt: true,
+            updatedAt: true
+
+        }
+    });
+
+    return result;
+}
+
+const updateUserRoleAndStatusIntoDB = async (id: string, payload: Partial<TUser>) => {
+    const result = await prisma.user.update({
+        where: {
+            id
+        },
+        data: {
+            role: payload?.role,
+            isActive: payload?.isActive
+        },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            isActive: true,
+            createdAt: true,
+            updatedAt: true
+        }
+    });
+    return result;
+}
+
 export const userServices = {
     createUserIntoDB,
     getUserInfoFromDB,
-    updateUserIntoDB
+    updateUserIntoDB,
+    getAllUserFromDB,
+    updateUserRoleAndStatusIntoDB
 }

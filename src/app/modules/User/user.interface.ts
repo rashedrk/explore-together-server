@@ -10,7 +10,8 @@ export type TUser = {
     name: string
     email: string
     role: Role,
-    password: string
+    password: string,
+    isActive?: boolean
     // profile: TProfile
 }
 
