@@ -138,9 +138,15 @@ const updateTripIntoDB = async (id: string, payload: Partial<TTrip>) => {
 const getAllMyTripsFromDB = async (id: string) => {
     const result = await prisma.trip.findMany({
         where: {
-            userId: id
+            AND: [
+                {userId: id},
+                {status: {
+                    not: "deactivated"
+                }}
+            ]
         }
     })
+    return result
 }
 
 export const tripServices = {

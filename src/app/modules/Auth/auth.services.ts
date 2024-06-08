@@ -23,6 +23,7 @@ const loginUser = async (payload: TAuth) => {
     }
 
     const accessToken = generateToken({
+        name: userData.name,
         email: userData.email,
         id: userData.id,
         role: userData.role,
