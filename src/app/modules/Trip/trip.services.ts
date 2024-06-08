@@ -1,5 +1,6 @@
 import { Prisma } from "@prisma/client";
 import { calculatePagination, prisma } from "../../utils/global"
+import { TTrip } from "./trip.interface";
 
 const createTripIntoDB = async (id: string, payload: TTrip) => {
     const trip = {
@@ -112,8 +113,20 @@ const getATripFromDB = async (id: string) => {
     return result;
 }
 
+const updateTripIntoDB = async (id: string, payload: Partial<TTrip>) => {
+    const result = await prisma.trip.update({
+        where: {
+            id: id
+        },
+        data: payload
+    });
+
+    return result;
+}
+
 export const tripServices = {
     createTripIntoDB,
     getAllTripsFromDB,
-    getATripFromDB
+    getATripFromDB,
+    updateTripIntoDB
 }

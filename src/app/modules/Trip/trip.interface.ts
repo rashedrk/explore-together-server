@@ -1,4 +1,6 @@
-type TTrip = {
+import { TripStatus } from "@prisma/client"
+
+export type TTrip = {
     destination: string
     startDate: string
     endDate: string
@@ -7,5 +9,5 @@ type TTrip = {
     photos: string[],
     description: string,
     type: string,
-    
+    status?: TripStatus
 }

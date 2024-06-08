@@ -6,8 +6,9 @@ import auth from "../../middlewares/Auth";
 
 const router = Router();
 
-router.post('/trips', auth(),validateRequest(tripValidation), tripControllers.createTrip);
+router.post('/trips', auth('admin', 'user'), validateRequest(tripValidation.createTrip), tripControllers.createTrip);
 router.get('/trips', tripControllers.getAllTrips);
-router.get('/trips/:id', tripControllers.getATrip);
+router.get('/trips/:id', auth('admin', 'user'), tripControllers.getATrip);
+router.put('/trips/:id', auth('admin', 'user'), validateRequest(tripValidation.updateTrip), tripControllers.updateTrip);
 
 export const tripRoutes = router;

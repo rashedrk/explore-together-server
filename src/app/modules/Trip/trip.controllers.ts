@@ -41,9 +41,21 @@ const getATrip = catchAsync(async(req,res) => {
         data: result
     })
 })
+const updateTrip = catchAsync(async(req,res) => {
+    const {id} = req.params;
+    const payload = req.body;
+    const result = await tripServices.updateTripIntoDB(id, payload);
+    sendResponse(res, {
+        success: true,
+        statusCode: 200,
+        message: "Trip updated successfully",
+        data: result
+    })
+})
 
 export const tripControllers = {
     createTrip,
     getAllTrips,
-    getATrip
+    getATrip,
+    updateTrip
 }
