@@ -53,9 +53,22 @@ const updateTrip = catchAsync(async(req,res) => {
     })
 })
 
+const getAllMyTrips = catchAsync(async(req, res) => {
+    const userData = verifyToken(req.headers.authorization as string, config.jwt_secret as string);
+
+    const result = await tripServices.getAllMyTripsFromDB(userData.id);
+    sendResponse(res, {
+        success: true,
+        statusCode: 200,
+        message: "All Trip retrieved successfully",
+        data: result
+    })
+})
+
 export const tripControllers = {
     createTrip,
     getAllTrips,
     getATrip,
-    updateTrip
+    updateTrip,
+    getAllMyTrips
 }

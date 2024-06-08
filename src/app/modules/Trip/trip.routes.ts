@@ -8,6 +8,7 @@ const router = Router();
 
 router.post('/trips', auth('admin', 'user'), validateRequest(tripValidation.createTrip), tripControllers.createTrip);
 router.get('/trips', tripControllers.getAllTrips);
+router.get('/trips/my', auth('admin', 'user'), tripControllers.getAllMyTrips);
 router.get('/trips/:id', auth('admin', 'user'), tripControllers.getATrip);
 router.put('/trips/:id', auth('admin', 'user'), validateRequest(tripValidation.updateTrip), tripControllers.updateTrip);
 

@@ -135,9 +135,18 @@ const updateTripIntoDB = async (id: string, payload: Partial<TTrip>) => {
     return result;
 }
 
+const getAllMyTripsFromDB = async (id: string) => {
+    const result = await prisma.trip.findMany({
+        where: {
+            userId: id
+        }
+    })
+}
+
 export const tripServices = {
     createTripIntoDB,
     getAllTripsFromDB,
     getATripFromDB,
-    updateTripIntoDB
+    updateTripIntoDB,
+    getAllMyTripsFromDB
 }
