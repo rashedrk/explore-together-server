@@ -1,10 +1,11 @@
+import config from "../../config"
 import { prisma } from "../../utils/global"
 import { TUser } from "./user.interface"
 import bcrypt from "bcrypt"
 
 const createUserIntoDB = async (payload: TUser) => {
 
-    const hashedPassword = await bcrypt.hash(payload.password, 12)
+    const hashedPassword = await bcrypt.hash(payload.password, Number(config.salt_rounds))
 
     const user = {
         name: payload.name,
