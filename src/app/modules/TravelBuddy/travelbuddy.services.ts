@@ -68,6 +68,9 @@ const requestedTrips = async (userId: string) => {
     const result = await prisma.travelBuddyRequest.findMany({
         where: {
             userId: userId
+        },
+        include: {
+            trip: true
         }
     });
 
