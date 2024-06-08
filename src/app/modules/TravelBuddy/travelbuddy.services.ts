@@ -64,8 +64,19 @@ const responseBuddyRequest = async (userId: string, payload: { tripId: string, s
     return result;
 }
 
+const requestedTrips = async (userId: string) => {
+    const result = await prisma.travelBuddyRequest.findMany({
+        where: {
+            userId: userId
+        }
+    });
+
+    return result;
+}
+
 export const travelBuddyServices = {
     sendTravelBuddyRequest,
     getTravelBuddies,
-    responseBuddyRequest
+    responseBuddyRequest,
+    requestedTrips
 }

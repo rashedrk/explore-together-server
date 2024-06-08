@@ -23,7 +23,7 @@ const auth = (...requiredRoles: Role[]) => {
 
         const { id, role } = decoded;
 
-        console.log(role);
+        // console.log(role);
         
 
 

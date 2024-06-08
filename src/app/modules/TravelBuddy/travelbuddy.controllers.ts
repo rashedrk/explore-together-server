@@ -1,4 +1,6 @@
+import config from "../../config";
 import catchAsync from "../../utils/CatchAsync";
+import { verifyToken } from "../../utils/JwtToken";
 import sendResponse from "../../utils/sendResponse";
 import { travelBuddyServices } from "./travelbuddy.services";
 
@@ -40,9 +42,22 @@ const responseBuddyRequest = catchAsync(async (req, res) => {
     })
 })
 
+const getAllRequestedTrip = catchAsync(async (req, res) => {
+    const userData = verifyToken(req.headers.authorization as string, config.jwt_secret as string);
+    const result = await travelBuddyServices.requestedTrips(userData.id);
+
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: 'All requests trip retrieved successfully',
+        data: result
+    })
+})
+
 
 export const travelBuddyControllers = {
     sendTravelBuddyRequest,
     getTravelBuddies,
-    responseBuddyRequest
+    responseBuddyRequest,
+    getAllRequestedTrip
 }
