@@ -11,7 +11,7 @@ const trip_routes_1 = require("./app/modules/Trip/trip.routes");
 const travelbuddy_routes_1 = require("./app/modules/TravelBuddy/travelbuddy.routes");
 const globalErrorHandler_1 = __importDefault(require("./app/middlewares/globalErrorHandler"));
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)({ origin: ['http://localhost:3000'] }));
+app.use((0, cors_1.default)({ origin: ['http://localhost:3000', 'https://explore-together.vercel.app'] }));
 app.use(express_1.default.json());
 app.get('/', (req, res) => {
     res.send("Welcome to Travel Buddy Matching server!");

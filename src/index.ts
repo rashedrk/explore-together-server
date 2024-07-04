@@ -8,7 +8,7 @@ import globalErrorHandler from "./app/middlewares/globalErrorHandler";
 
 const app: Application = express();
 
-app.use(cors({ origin: ['http://localhost:3000']}));
+app.use(cors({ origin: ['http://localhost:3000', 'https://explore-together.vercel.app']}));
 app.use(express.json())
 
 app.get('/', (req: Request, res: Response) => {
