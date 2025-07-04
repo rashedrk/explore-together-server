@@ -8,18 +8,24 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  password  String
-  role      Role     @default(user)
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt()
+  id           String   @id @default(uuid())
+  firstName    String
+  lastName     String
+  phone        String
+  address      String
+  email        String   @unique
+  password     String
+  gender       Gender
+  profileImage String
+  role         Role     @default(user)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt()
 
   Trip               Trip[]
   // UserProfile        UserProfile?
   TravelBuddyRequest TravelBuddyRequest[]
+  Review             Review[]
 }
 
 // model UserProfile {
@@ -35,6 +41,7 @@ model User {
 
 model Trip {
   id          String     @id @default(uuid())
+  title       String
   userId      String
   destination String
   startDate   String
@@ -50,6 +57,7 @@ model Trip {
 
   user               User                 @relation(fields: [userId], references: [id])
   TravelBuddyRequest TravelBuddyRequest[]
+  Review             Review[]
 }
 
 model TravelBuddyRequest {
@@ -62,6 +70,21 @@ model TravelBuddyRequest {
 
   trip Trip @relation(fields: [tripId], references: [id])
   user User @relation(fields: [userId], references: [id])
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  tripId    String
+  userId    String
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+
+  trip Trip @relation(fields: [tripId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([tripId, userId])
 }
 
 enum Status {
@@ -78,4 +101,9 @@ enum Role {
 enum TripStatus {
   active
   deactivated
+}
+
+enum Gender {
+  male
+  female
 }
