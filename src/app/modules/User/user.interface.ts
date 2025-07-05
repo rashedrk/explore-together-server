@@ -12,7 +12,7 @@ export type TUser = {
     phone: string
     address: string
     gender: "male" | "female"
-    profileImage: string
+    profileImage?: string
     email: string
     role: Role,
     password: string,

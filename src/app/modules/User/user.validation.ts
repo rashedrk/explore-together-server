@@ -20,6 +20,7 @@ const userSchema = z.object({
     body: z.object({
         firstName: z.string({ required_error: 'First Name is required' }),
         lastName: z.string({ required_error: 'Last Name is required' }),
+        phone: z.string({ required_error: 'Phone is required' }),
         address: z.string({ required_error: 'Address is required' }),
         gender: z.enum(['male', 'female'], { required_error: 'Gender is required' }),
         email: z.string({ required_error: 'Email is required' }).email(),

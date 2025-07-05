@@ -8,14 +8,7 @@ const createUserIntoDB = async (payload: TUser) => {
     const hashedPassword = await bcrypt.hash(payload.password, Number(config.salt_rounds))
 
     const user = {
-        firstName: payload.firstName,
-        lastName: payload.lastName,
-        phone: payload.phone,
-        address: payload.address,
-        gender: payload.gender,
-        profileImage: payload.profileImage,
-        email: payload.email,
-        role: payload.role,
+        ...payload,
         password: hashedPassword
     }
     // const result = await prisma.$transaction(async (trxClient) => {
