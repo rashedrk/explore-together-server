@@ -21,7 +21,12 @@ const getTravelBuddies = async (tripId: string) => {
             user: {
                 select: {
                     id: true,
-                    name: true,
+                    firstName: true,
+                    lastName: true,
+                    phone: true,
+                    address: true,
+                    gender: true,
+                    profileImage: true,
                     email: true
                 }
             },

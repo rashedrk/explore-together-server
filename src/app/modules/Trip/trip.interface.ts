@@ -1,6 +1,7 @@
 import { TripStatus } from "@prisma/client"
 
 export type TTrip = {
+    title: string,
     destination: string
     startDate: string
     endDate: string

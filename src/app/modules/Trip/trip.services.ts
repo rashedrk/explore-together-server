@@ -5,7 +5,7 @@ import { TTrip } from "./trip.interface";
 const createTripIntoDB = async (id: string, payload: TTrip) => {
     const trip = {
         ...payload,
-        userId: id
+        userId: id,
     }
     const result = await prisma.trip.create({
         data: trip
