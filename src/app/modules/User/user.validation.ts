@@ -2,8 +2,12 @@ import { z } from "zod";
 
 const update = z.object({
     body: z.object({
-        name: z.string().optional(),
-        email: z.string().email().optional(),
+        firstName: z.string().optional(),
+        lastName: z.string().optional(),
+        phone: z.string().optional(),
+        address: z.string().optional(),
+        gender: z.enum(['male', 'female']).optional(),
+        profileImage: z.string().optional(),
     })
 });
 
@@ -14,7 +18,10 @@ const update = z.object({
 
 const userSchema = z.object({
     body: z.object({
-        name: z.string({ required_error: 'Name is required' }),
+        firstName: z.string({ required_error: 'First Name is required' }),
+        lastName: z.string({ required_error: 'Last Name is required' }),
+        address: z.string({ required_error: 'Address is required' }),
+        gender: z.enum(['male', 'female'], { required_error: 'Gender is required' }),
         email: z.string({ required_error: 'Email is required' }).email(),
         role: z.enum(['admin','user'], { required_error: "Role must be admin or user" }).optional(),
         password: z.string({ required_error: 'Password is required' }),

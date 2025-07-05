@@ -8,7 +8,12 @@ const createUserIntoDB = async (payload: TUser) => {
     const hashedPassword = await bcrypt.hash(payload.password, Number(config.salt_rounds))
 
     const user = {
-        name: payload.name,
+        firstName: payload.firstName,
+        lastName: payload.lastName,
+        phone: payload.phone,
+        address: payload.address,
+        gender: payload.gender,
+        profileImage: payload.profileImage,
         email: payload.email,
         role: payload.role,
         password: hashedPassword
@@ -45,7 +50,12 @@ const createUserIntoDB = async (payload: TUser) => {
         data: user,
         select: {
             id: true,
-            name: true,
+            firstName: true,
+            lastName: true,
+            phone: true,
+            address: true,
+            gender: true,
+            profileImage: true,
             email: true,
             createdAt: true,
             updatedAt: true
@@ -64,7 +74,12 @@ const getUserInfoFromDB = async (id: string) => {
         },
         select: {
             id: true,
-            name: true,
+            firstName: true,
+            lastName: true,
+            phone: true,
+            address: true,
+            gender: true,
+            profileImage: true,
             email: true,
             role: true,
             createdAt: true,
@@ -81,12 +96,22 @@ const updateUserIntoDB = async (id: string, payload: Partial<TUser>) => {
             id
         },
         data: {
-            name: payload?.name,
+            firstName: payload?.firstName,
+            lastName: payload?.lastName,
+            phone: payload?.phone,
+            address: payload?.address,
+            gender: payload?.gender,
+            profileImage: payload?.profileImage,
             email: payload?.email
         },
         select: {
             id: true,
-            name: true,
+            firstName: true,
+            lastName: true,
+            phone: true,
+            address: true,
+            gender: true,
+            profileImage: true,
             email: true,
             createdAt: true,
             updatedAt: true
@@ -106,7 +131,12 @@ const getAllUserFromDB = async (id: string) => {
         },
         select: {
             id: true,
-            name: true,
+            firstName: true,
+            lastName: true,
+            phone: true,
+            address: true,
+            gender: true,
+            profileImage: true,
             email: true,
             role: true,
             isActive: true,
@@ -130,7 +160,12 @@ const updateUserRoleAndStatusIntoDB = async (id: string, payload: Partial<TUser>
         },
         select: {
             id: true,
-            name: true,
+            firstName: true,
+            lastName: true,
+            phone: true,
+            address: true,
+            gender: true,
+            profileImage: true,
             email: true,
             role: true,
             isActive: true,

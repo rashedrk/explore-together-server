@@ -23,7 +23,8 @@ const loginUser = async (payload: TAuth) => {
     }
 
     const accessToken = generateToken({
-        name: userData.name,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
         email: userData.email,
         id: userData.id,
         role: userData.role,
@@ -36,7 +37,12 @@ const loginUser = async (payload: TAuth) => {
 
     return {
         id: userData.id,
-        name: userData.name,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        phone: userData.phone,
+        address: userData.address,
+        gender: userData.gender,
+        profileImage: userData.profileImage,
         email: userData.email,
         token: accessToken
     }
@@ -54,7 +60,7 @@ const changePassword = async (
     });
 
 
-    
+
 
     if (!user) {
         throw new Error('This user is not found !');
@@ -74,7 +80,7 @@ const changePassword = async (
     const isCorrectPassword: boolean = await bcrypt.compare(payload.oldPassword, user.password);
 
 
-    
+
 
     if (!isCorrectPassword) {
         throw new Error("Password incorrect!")
@@ -86,7 +92,7 @@ const changePassword = async (
     );
 
 
-    
+
 
     await prisma.user.update({
         where: {
@@ -97,7 +103,7 @@ const changePassword = async (
         }
     })
 
-    
+
 
     return null;
 };

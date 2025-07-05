@@ -7,7 +7,12 @@
 import { Role } from "@prisma/client"
 
 export type TUser = {
-    name: string
+    firstName: string
+    lastName: string
+    phone: string
+    address: string
+    gender: "male" | "female"
+    profileImage: string
     email: string
     role: Role,
     password: string,
