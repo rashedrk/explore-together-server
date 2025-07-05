@@ -38,7 +38,6 @@ const createUserIntoDB = async (payload: TUser) => {
 
     //     return createdUser;
     // });
-
     const result = await prisma.user.create({
         data: user,
         select: {
@@ -55,7 +54,6 @@ const createUserIntoDB = async (payload: TUser) => {
         }
     },
     );
-
     return result;
 
 }
